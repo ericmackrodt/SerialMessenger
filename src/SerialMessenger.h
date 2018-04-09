@@ -23,6 +23,7 @@ class SerialMessenger
     SerialMessenger();
     SerialMessenger(SoftwareSerial* serial);
     int subscribe(String channel, void (*func)(String));
+    void send(String message);
     void send(String channel, String message);
     void setPrefix(char prefix);
     void setSuffix(char suffix);
@@ -47,6 +48,7 @@ class SerialMessenger
     String _getParameter();
     bool _isChannel(String channel);
     int _read();
+    void _print(String message);
 };
 
 #endif

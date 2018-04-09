@@ -30,8 +30,12 @@ void SerialMessenger::setDelimiter(char delimiter) {
   _delimiter = delimiter;
 }
 
+void SerialMessenger::send(String channel) {
+  _print(_prefix + channel + _suffix);
+}
+
 void SerialMessenger::send(String channel, String message) {
-  
+  _print(_prefix + channel + _delimiter + message + _suffix);
 }
 
 void SerialMessenger::handle() {
@@ -59,6 +63,14 @@ int SerialMessenger::_read() {
     return Serial.read();
   } else {
     return _softSerial->read();
+  }
+}
+
+void SerialMessenger::_print(String message) {
+  if (_isHardwareSerial == true) {
+    Serial.print(message);
+  } else {
+    _softSerial->print(message);
   }
 }
 

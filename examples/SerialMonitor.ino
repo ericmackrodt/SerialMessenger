@@ -1,15 +1,11 @@
 #import <SerialMessenger.h>
 
-String channels[] = {
-  "Channel1",
-  "Channel2"
-};
-
-SerialMessenger messenger(channels);
+SerialMessenger messenger;
 
 void setup() {
+  Serial.begin(115200);
+  Serial.println("Started!");
   messenger.subscribe("Channel1", &channel1);
-  messenger.subscribe("Channel2", &channel1);
 }
 
 void loop() {
@@ -17,5 +13,5 @@ void loop() {
 }
 
 void channel1(String message) {
-  Serial.println(message);
+  messenger.send("Received", message);
 }
